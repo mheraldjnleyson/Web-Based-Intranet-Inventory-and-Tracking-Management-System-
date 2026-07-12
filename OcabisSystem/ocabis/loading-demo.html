@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Demo - OCABIS</title>
+    <link rel="stylesheet" href="Css/department.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .demo-button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background 0.2s;
+        }
+        .demo-button:hover {
+            background: #2563eb;
+        }
+        .demo-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>🔄 Loading Overlay Demo</h1>
+        <p>This demonstrates the loading functionality added to the "Add New Item" feature.</p>
+        
+        <h2>Loading States:</h2>
+        <button class="demo-button" onclick="demoBasicLoading()">Basic Loading (3 seconds)</button>
+        <button class="demo-button" onclick="demoProgressLoading()">Progress Loading (5 items)</button>
+        <button class="demo-button" onclick="demoErrorLoading()">Error Loading (2 seconds)</button>
+        
+        <h2>Features Added:</h2>
+        <ul>
+            <li>✅ <strong>Loading Overlay:</strong> Professional overlay with spinner</li>
+            <li>✅ <strong>Progress Bar:</strong> Shows progress for multiple operations</li>
+            <li>✅ <strong>Button States:</strong> Disabled buttons during loading</li>
+            <li>✅ <strong>Error Handling:</strong> Proper cleanup on errors</li>
+            <li>✅ <strong>Success Handling:</strong> Clean completion</li>
+        </ul>
+        
+        <h2>Implementation:</h2>
+        <p>The loading functionality has been added to:</p>
+        <ul>
+            <li><strong>Add New Item:</strong> Shows "Adding New Item..." with overlay</li>
+            <li><strong>Add Item Table:</strong> Shows "Adding New Item Table..." with overlay</li>
+            <li><strong>QR Download/Print:</strong> Already had loading (enhanced)</li>
+        </ul>
+        
+        <p><strong>Note:</strong> This demo shows the loading states. In the actual application, these loading states will appear when adding items or performing other operations.</p>
+    </div>
+
+    <script>
+        // Demo functions
+        function demoBasicLoading() {
+            showLoadingOverlay('Adding New Item...', false, 0);
+            
+            setTimeout(() => {
+                hideLoadingOverlay();
+                alert('✅ Item added successfully!');
+            }, 3000);
+        }
+        
+        function demoProgressLoading() {
+            showLoadingOverlay('Processing Multiple Items...', true, 5);
+            
+            let completed = 0;
+            const interval = setInterval(() => {
+                completed++;
+                updateLoadingProgress(completed, 5, `Item ${completed}`);
+                
+                if (completed >= 5) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        hideLoadingOverlay();
+                        alert('✅ All items processed successfully!');
+                    }, 500);
+                }
+            }, 1000);
+        }
+        
+        function demoErrorLoading() {
+            showLoadingOverlay('Adding Item...', false, 0);
+            
+            setTimeout(() => {
+                hideLoadingOverlay();
+                alert('❌ Error: Failed to add item. Please try again.');
+            }, 2000);
+        }
+        
+        // Loading functions (copied from department.php)
+        function showLoadingOverlay(message = 'Processing...', showProgress = false, totalItems = 0) {
+            const overlay = document.createElement('div');
+            overlay.className = 'loading-overlay';
+            overlay.id = 'loadingOverlay';
+            
+            const progressHtml = showProgress ? `
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="loading-progress" id="loadingProgress">0 / ${totalItems} items</div>
+            ` : '';
+            
+            overlay.innerHTML = `
+                <div class="loading-content">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">${message}</div>
+                    ${progressHtml}
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+        
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        function updateLoadingProgress(current, total, itemName = '') {
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('loadingProgress');
+            
+            if (progressFill && progressText) {
+                const percentage = (current / total) * 100;
+                progressFill.style.width = percentage + '%';
+                progressText.textContent = `${current} / ${total} items${itemName ? ` - ${itemName}` : ''}`;
+            }
+        }
+    </script>
+</body>
+</html>
+
