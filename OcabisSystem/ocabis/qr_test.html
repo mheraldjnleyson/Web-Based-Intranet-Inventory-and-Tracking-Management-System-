@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .qr-test {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .qr-test img {
+            max-width: 200px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+        .url-test {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        .test-link {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+        .test-link:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 QR Code Test Page</h1>
+        <p>This page helps test if QR codes are working properly.</p>
+        
+        <h2>Test QR Codes:</h2>
+        
+        <div class="qr-test">
+            <h3>Item ID 17</h3>
+            <img src="qr_codes/qr_item_17_1759117148.png" alt="QR Code for Item 17">
+            <div class="url-test">
+                <strong>URL:</strong> <span id="url-17">Loading...</span>
+            </div>
+            <a href="view_item.php?id=17" class="test-link" target="_blank">Test Link</a>
+        </div>
+        
+        <div class="qr-test">
+            <h3>Item ID 18</h3>
+            <img src="qr_codes/qr_item_18_1759132031.png" alt="QR Code for Item 18">
+            <div class="url-test">
+                <strong>URL:</strong> <span id="url-18">Loading...</span>
+            </div>
+            <a href="view_item.php?id=18" class="test-link" target="_blank">Test Link</a>
+        </div>
+        
+        <div class="qr-test">
+            <h3>Item ID 19</h3>
+            <img src="qr_codes/qr_item_19_1759132332.png" alt="QR Code for Item 19">
+            <div class="url-test">
+                <strong>URL:</strong> <span id="url-19">Loading...</span>
+            </div>
+            <a href="view_item.php?id=19" class="test-link" target="_blank">Test Link</a>
+        </div>
+        
+        <h2>📱 How to Test:</h2>
+        <ol>
+            <li><strong>Scan with your phone:</strong> Use your phone's camera or a QR scanner app to scan the QR codes above</li>
+            <li><strong>Click the test links:</strong> Click the "Test Link" buttons to see if the URLs work in your browser</li>
+            <li><strong>Check the URLs:</strong> Make sure the URLs are correct and accessible</li>
+        </ol>
+        
+        <h2>🔧 Troubleshooting:</h2>
+        <ul>
+            <li>If QR codes don't scan: Make sure your phone has a QR scanner app or use the camera app</li>
+            <li>If URLs don't work: Check that XAMPP is running and the database has items</li>
+            <li>If pages don't load: Check the browser console for errors</li>
+        </ul>
+    </div>
+
+    <script>
+        // Dynamically generate URLs based on current host
+        function updateUrls() {
+            const protocol = window.location.protocol;
+            const host = window.location.host;
+            const baseUrl = protocol + '//' + host + '/ocabisFrontend/ocabis/';
+            
+            // Update URL displays
+            document.getElementById('url-17').textContent = baseUrl + 'view_item.php?id=17';
+            document.getElementById('url-18').textContent = baseUrl + 'view_item.php?id=18';
+            document.getElementById('url-19').textContent = baseUrl + 'view_item.php?id=19';
+        }
+        
+        // Update URLs when page loads
+        document.addEventListener('DOMContentLoaded', updateUrls);
+    </script>
+</body>
+</html>
