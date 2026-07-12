@@ -1,0 +1,320 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-container {
+  width: 800px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.login-box {
+  display: flex;
+  background: white;
+}
+
+.left-panel {
+  position: relative;
+  background: #dd2a3b;
+  color: white;
+  padding: 40px 30px;
+  flex: 1;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  overflow: hidden;
+}
+
+.left-panel h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+.logo-title img {
+  width: 70px;
+  margin-right: 3px;
+  border: 5px solid white;
+  border-radius: 50%;
+  background-color: white;
+  letter-spacing: 5px;
+}
+
+.logo-title h1 {
+  font-size: 60px;
+  letter-spacing: 15px;
+}
+
+.left-panel p {
+  font-size: 18px;
+}
+
+.left-panel::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: #e84749;
+  clip-path: polygon(0 100%, 100% 100%, 100% 0);
+  transform: rotate(-180deg);
+  z-index: 0;
+}
+
+.left-panel::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: white;
+  clip-path: polygon(0 100%, 100% 100%, 100% 0);
+  box-shadow: -8px -8px 15px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.right-panel {
+  flex: 1;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-panel h2 {
+  color: #d62828;
+  font-size: 24px;
+}
+
+.right-panel p {
+  margin: 10px 0 30px;
+  font-size: 15px;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Hide browser password manager icons - Comprehensive rules */
+.input-group input[type="password"]::-webkit-credentials-auto-fill-button,
+.input-group input[type="password"]::-webkit-strong-password-auto-fill-button,
+.input-group input[type="password"]::-webkit-textfield-decoration-container {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  right: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.input-group input[type="password"]::-ms-reveal,
+.input-group input[type="password"]::-ms-clear {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Additional Firefox and other browser support */
+.input-group input[type="password"] {
+  -moz-appearance: textfield;
+}
+
+.input-group input[type="password"]::-moz-textfield-decoration-container {
+  display: none !important;
+}
+
+.input-group select {
+  border: 1px solid #ccc;
+  background: white;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+  padding-right: 40px;
+}
+
+.input-group i {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  color: #aaa;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.login-btn {
+  width: 90%;
+  padding: 10px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 6px;
+  background: #d62828;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+.login-btn:hover {
+  background: #b71c1c;
+}
+
+.signup-text {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.signup-text a {
+  color: #d62828;
+  text-decoration: none;
+}
+
+/* Password strength meter */
+.password-hint {
+  display: block;
+  color: #666;
+  font-size: 0.85em;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.strength-meter {
+  width: 100%;
+  height: 4px;
+  background: #ddd;
+  border-radius: 2px;
+  margin-bottom: 5px;
+}
+
+.strength-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.3s, background-color 0.3s;
+}
+
+.strength-text, 
+.password-match-text {
+  display: block;
+  font-size: 0.8em;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* === MODAL (Unified for Success & Error) === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  width: 400px;
+  position: relative;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content h2 {
+  margin: 10px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.modal-content p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+.close-btn:hover {
+  color: #000;
+}
+
+/* Default OK button */
+.modal-ok-btn {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Success style */
+.modal.success .modal-content {
+  border-top: 5px solid #28a745;
+}
+.modal.success .modal-ok-btn {
+  background: #28a745;
+}
+.modal.success .modal-ok-btn:hover {
+  background: #218838;
+}
+
+/* Error style */
+.modal.error .modal-content {
+  border-top: 5px solid #dc3545;
+}
+.modal.error .modal-ok-btn {
+  background: #dc3545;
+}
+.modal.error .modal-ok-btn:hover {
+  background: #c82333;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
